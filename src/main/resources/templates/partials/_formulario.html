@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
-    <!-- Formulario de contacto compartido por "nuevo" y "editar" (ContactoFormType en Symfony) -->
     <form th:fragment="formulario(accion)" th:action="${accion}" th:object="${contactoForm}" method="post" novalidate>
 
         <div class="mb-3 row">
