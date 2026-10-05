@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/base :: layout(~{::title}, ~{::section})}">
+
+<head>
+    <title>Register</title>
+</head>
+
+<body>
+    <section>
+        <h1>Register</h1>
+
+        <form th:action="@{/register}" th:object="${registrationForm}" method="post" novalidate>
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" th:field="*{name}" th:errorclass="is-invalid"
+                    autocomplete="name">
+                <div class="invalid-feedback" th:errors="*{name}">Error</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" th:field="*{email}" th:errorclass="is-invalid"
+                    autocomplete="email">
+                <div class="invalid-feedback" th:errors="*{email}">Error</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="plainPassword" class="form-label">Password</label>
+                <input type="password" class="form-control" th:field="*{plainPassword}" th:errorclass="is-invalid"
+                    autocomplete="new-password">
+                <div class="invalid-feedback" th:errors="*{plainPassword}">Error</div>
+            </div>
+
+            <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" th:field="*{agreeTerms}" th:errorclass="is-invalid">
+                <label class="form-check-label" th:for="${#ids.prev('agreeTerms')}">Agree terms</label>
+                <div class="invalid-feedback" th:errors="*{agreeTerms}">Error</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Register</button>
+            <a class="btn btn-link" th:href="@{/login}">Ya tengo cuenta</a>
+        </form>
+    </section>
+</body>
+
+</html>

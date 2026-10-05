@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <!-- Formulario de contacto compartido por "nuevo" y "editar" (ContactoFormType en Symfony) -->
+    <form th:fragment="formulario(accion)" th:action="${accion}" th:object="${contactoForm}" method="post" novalidate>
+
+        <div class="mb-3 row">
+            <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" th:field="*{nombre}" th:errorclass="is-invalid">
+                <div class="invalid-feedback" th:errors="*{nombre}">Error</div>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="telefono" class="col-sm-2 col-form-label">Teléfono</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" th:field="*{telefono}" th:errorclass="is-invalid">
+                <div class="invalid-feedback" th:errors="*{telefono}">Error</div>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="email" class="col-sm-2 col-form-label">Correo electrónico</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" th:field="*{email}" th:errorclass="is-invalid">
+                <div class="invalid-feedback" th:errors="*{email}">Error</div>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="provinciaId" class="col-sm-2 col-form-label">Provincia</label>
+            <div class="col-sm-10">
+                <select class="form-select" th:field="*{provinciaId}" th:errorclass="is-invalid">
+                    <option value="">Sin provincia</option>
+                    <option th:each="provincia : ${provincias}" th:value="${provincia.id}"
+                        th:text="${provincia.nombre}">Valencia</option>
+                </select>
+                <div class="invalid-feedback" th:errors="*{provinciaId}">Error</div>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                <a class="btn btn-secondary" th:href="@{/}">Cancelar</a>
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>

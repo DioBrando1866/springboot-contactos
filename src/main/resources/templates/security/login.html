@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/base :: layout(~{::title}, ~{::section})}">
+
+<head>
+    <title>Log in!</title>
+</head>
+
+<body>
+    <section>
+        <div th:if="${username != null}" class="mb-3">
+            You are logged in as <strong th:text="${username}">usuario@correo.es</strong>,
+            <form th:action="@{/logout}" method="post" class="d-inline">
+                <button type="submit" class="btn btn-link p-0 align-baseline">Logout</button>
+            </form>
+        </div>
+
+        <form th:action="@{/login}" method="post">
+            <div th:if="${param.error}" class="alert alert-danger">Invalid credentials.</div>
+            <div th:if="${param.logout}" class="alert alert-success">You have been logged out.</div>
+
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+            <label for="username">Email</label>
+            <input type="email" name="_username" id="username" class="form-control" autocomplete="email" required
+                autofocus>
+
+            <label for="password">Password</label>
+            <input type="password" name="_password" id="password" class="form-control"
+                autocomplete="current-password" required>
+
+            <div class="mt-3">
+                <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+                <a class="btn btn-lg btn-primary" th:href="@{/register}">Registrarse</a>
+            </div>
+        </form>
+    </section>
+</body>
+
+</html>

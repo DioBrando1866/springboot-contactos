@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <ul th:fragment="contacto(c)">
+        <li><strong>Código</strong>: <span th:text="${c.id}">1</span></li>
+
+        <li><strong>Nombre</strong>: <span th:text="${c.nombre}">Nombre</span></li>
+
+        <li><strong>Teléfono</strong>: <span th:text="${c.telefono}">600000000</span></li>
+
+        <li><strong>E-mail</strong>: <span th:text="${c.email}">correo@ejemplo.es</span></li>
+
+        <li><strong>Provincia</strong>: <span th:text="${c.provincia?.nombre ?: 'Sin provincia'}">Valencia</span></li>
+    </ul>
+</body>
+
+</html>

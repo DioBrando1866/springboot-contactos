@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/base :: layout(~{::title}, ~{::section})}">
+
+<head>
+    <title>Error</title>
+</head>
+
+<body>
+    <section>
+        <h1 th:text="${status} + ' ' + ${error}">404 Not Found</h1>
+        <p th:text="${message}">Mensaje de error</p>
+        <a class="btn btn-primary" th:href="@{/}">Volver al inicio</a>
+    </section>
+</body>
+
+</html>

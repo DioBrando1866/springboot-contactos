@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/base :: layout(~{::title}, ~{::section})}">
+
+<head>
+    <title>Contactos</title>
+</head>
+
+<body>
+    <section>
+        <h1>Contactos</h1>
+
+        <h2>Bienvenido a la web de contactos.</h2>
+
+        <div class="mb-3">
+            You are logged in as <strong th:text="${username}">usuario@correo.es</strong>,
+            <form th:action="@{/logout}" method="post" class="d-inline">
+                <button type="submit" class="btn btn-link p-0 align-baseline">Logout</button>
+            </form>
+        </div>
+
+        <h2>Página de inicio - <a th:href="@{/contacto/nuevo}">Nuevo contacto</a></h2>
+
+        <p th:if="${#lists.isEmpty(contactos)}">Todavía no hay contactos.</p>
+
+        <ul>
+            <li th:each="contacto : ${contactos}">
+                <a th:href="@{/contacto/{id}(id=${contacto.id})}" th:text="${contacto.nombre}">Nombre</a>
+            </li>
+        </ul>
+    </section>
+</body>
+
+</html>

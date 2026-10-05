@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/base :: layout(~{::title}, ~{::section})}">
+
+<head>
+    <title>Ficha del contacto</title>
+</head>
+
+<body>
+    <section>
+        <th:block th:if="${contacto != null}">
+            <h1>Ficha del contacto</h1>
+
+            <div th:replace="~{partials/_contacto :: contacto(${contacto})}"></div>
+
+            <a class="btn btn-primary" th:href="@{/contacto/editar/{id}(id=${contacto.id})}">Editar</a>
+            <form th:action="@{/contacto/borrar/{id}(id=${contacto.id})}" method="post" class="d-inline">
+                <button type="submit" class="btn btn-primary">Borrar</button>
+            </form>
+        </th:block>
+
+        <p th:if="${contacto == null}">No se ha encontrado el contacto</p>
+
+        <a class="btn btn-primary" th:href="@{/}">Volver al inicio</a>
+    </section>
+</body>
+
+</html>

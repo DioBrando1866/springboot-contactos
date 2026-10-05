@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/base :: layout(~{::title}, ~{::section})}">
+
+<head>
+    <title>Nuevo contacto</title>
+</head>
+
+<body>
+    <section>
+        <h1>Nuevo contacto</h1>
+
+        <th:block th:with="accion=@{/contacto/nuevo}">
+            <form th:replace="~{partials/_formulario :: formulario(${accion})}"></form>
+        </th:block>
+    </section>
+</body>
+
+</html>
