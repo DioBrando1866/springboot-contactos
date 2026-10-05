@@ -1,9 +1,11 @@
 package com.example.contactos.controller
 
 import com.example.contactos.entity.Contacto
+import com.example.contactos.entity.Pais
 import com.example.contactos.entity.Provincia
 import com.example.contactos.form.ContactoForm
 import com.example.contactos.repository.ContactoRepository
+import com.example.contactos.repository.PaisRepository
 import com.example.contactos.repository.ProvinciaRepository
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -20,11 +22,13 @@ import org.springframework.web.server.ResponseStatusException
 class ContactoController(
     private val contactos: ContactoRepository,
     private val provincias: ProvinciaRepository,
+    private val paises: PaisRepository
 ) {
     @GetMapping("/contacto/nuevo")
     fun nuevo(model: Model): String {
         model.addAttribute("contactoForm", ContactoForm())
         model.addAttribute("provincias", provincias.findAllByOrderByNombreAsc())
+        model.addAttribute("paises", paises.findAllByOrderByNombreAsc())
         return "nuevo"
     }
 
@@ -40,8 +44,14 @@ class ContactoController(
             return "nuevo"
         }
 
+        val pais = resolverPais(form, binding)
+        if (binding.hasErrors()) {
+            model.addAttribute("paises", paises.findAllByOrderByNombreAsc())
+            return "nuevo"
+        }
+
         val contacto = Contacto()
-        copiarDatos(form, contacto, provincia)
+        copiarDatos(form, contacto, provincia, pais)
         contactos.save(contacto)
         return "redirect:/"
     }
@@ -61,6 +71,7 @@ class ContactoController(
         model.addAttribute("codigo", codigo)
         model.addAttribute("contactoForm", ContactoForm.desde(contacto))
         model.addAttribute("provincias", provincias.findAllByOrderByNombreAsc())
+        model.addAttribute("paises", paises.findAllByOrderByNombreAsc())
         return "editar"
     }
 
@@ -80,7 +91,14 @@ class ContactoController(
             return "editar"
         }
 
-        copiarDatos(form, contacto, provincia)
+        val pais = resolverPais(form, binding)
+        if (binding.hasErrors()) {
+            model.addAttribute("codigo", codigo)
+            model.addAttribute("paises", paises.findAllByOrderByNombreAsc())
+            return "editar"
+        }
+
+        copiarDatos(form, contacto, provincia, pais)
         contactos.save(contacto)
         return "redirect:/"
     }
@@ -107,10 +125,20 @@ class ContactoController(
         return provincia
     }
 
-    private fun copiarDatos(form: ContactoForm, contacto: Contacto, provincia: Provincia?) {
+    private fun resolverPais(form: ContactoForm, binding: BindingResult): Pais? {
+        val id = form.paisId ?: return null
+        val pais = paises.findById(id).orElse(null)
+        if (pais == null) {
+            binding.rejectValue("paisId", "pais.invalido", "El pais seleccionado no existe")
+        }
+        return pais
+    }
+
+    private fun copiarDatos(form: ContactoForm, contacto: Contacto, provincia: Provincia?, pais: Pais?) {
         contacto.nombre = form.nombre.trim()
         contacto.telefono = form.telefono.trim()
         contacto.email = form.email.trim()
         contacto.provincia = provincia
+        contacto.pais = pais
     }
 }

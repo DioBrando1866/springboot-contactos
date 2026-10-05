@@ -12,6 +12,9 @@
         <li><strong>E-mail</strong>: <span th:text="${c.email}">correo@ejemplo.es</span></li>
 
         <li><strong>Provincia</strong>: <span th:text="${c.provincia?.nombre ?: 'Sin provincia'}">Valencia</span></li>
+
+        <li><strong>País</strong>: <span th:text="${c.pais?.nombre ?: 'Sin país'}">París</span></li>
+
     </ul>
 </body>
 

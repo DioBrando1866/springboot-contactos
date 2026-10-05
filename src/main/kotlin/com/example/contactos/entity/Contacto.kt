@@ -29,4 +29,8 @@ class Contacto {
     @ManyToOne
     @JoinColumn(name = "provincia_id")
     var provincia: Provincia? = null
+
+    @ManyToOne
+    @JoinColumn(name = "pais_id")
+    var pais: Pais? = null
 }

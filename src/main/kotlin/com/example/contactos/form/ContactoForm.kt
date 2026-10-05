@@ -21,6 +21,7 @@ class ContactoForm {
     var email: String = ""
 
     var provinciaId: Long? = null
+    var paisId: Long? = null
 
     companion object {
         fun desde(contacto: Contacto): ContactoForm {
@@ -29,6 +30,7 @@ class ContactoForm {
             form.telefono = contacto.telefono
             form.email = contacto.email
             form.provinciaId = contacto.provincia?.id
+            form.paisId = contacto.pais?.id
             return form
         }
     }
