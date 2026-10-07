@@ -677,6 +677,3 @@ En MySQL: `docker compose down -v && docker compose up -d`. En H2: basta con rei
 - Guías cortas "Getting Started": <https://spring.io/guides>
 - Thymeleaf: <https://www.thymeleaf.org/documentation.html>
 - Kotlin: <https://kotlinlang.org/docs/getting-started.html>
-
-Un buen ejercicio para practicar: añadir un campo `direccion` a los contactos siguiendo
-la sección [8](#8-cómo-modificar-el-proyecto).
